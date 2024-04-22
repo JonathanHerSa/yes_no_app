@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class OtherMessageBubble extends StatelessWidget {
+  final String message;
+  final String urlImage;
+
+  const OtherMessageBubble(
+      {super.key, required this.message, required this.urlImage});
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -11,7 +16,7 @@ class OtherMessageBubble extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: size.width * 0.8,
+          constraints: BoxConstraints(maxHeight: size.width * 0.8),
           decoration: BoxDecoration(
             color: colors.secondary,
             borderRadius: BorderRadius.circular(20),
@@ -22,13 +27,13 @@ class OtherMessageBubble extends StatelessWidget {
               vertical: 10,
             ),
             child: Text(
-              'Consequat eu deserunt irure incididunt qui irure.',
-              style: TextStyle(color: Colors.white),
+              message,
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),
         const SizedBox(height: 5),
-        _ImageBubble(),
+        _ImageBubble(urlImage: urlImage),
         const SizedBox(height: 10)
       ],
     );
@@ -36,6 +41,8 @@ class OtherMessageBubble extends StatelessWidget {
 }
 
 class _ImageBubble extends StatelessWidget {
+  final String urlImage;
+  const _ImageBubble({required this.urlImage});
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -43,7 +50,7 @@ class _ImageBubble extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        'https://yesno.wtf/assets/yes/15-3d723ea13af91839a671d4791fc53dcc.gif',
+        urlImage,
         width: size.width * 0.7,
         height: 150,
         fit: BoxFit.cover,
